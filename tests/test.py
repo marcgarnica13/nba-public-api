@@ -1,8 +1,17 @@
-import os
+from nba_public_api.dlt_pipelines.players_ingestion import StatsNBAPipeline
 
+from dlt.sources.helpers.rest_client
 
-from pathlib import Path
+StatsNBAPipeline(endpoints=["commonallplayers"]).run(
+    IsOnlyCurrentSeason=1, LeagueID="00", Season="2022-23"
+)
 
+import duckdb
 
-def test():
-    print(os.getcwd())
+conn = duckdb.connect("nba_ingestion.duckdb")
+print("Loaded tables: ")
+conn.sql("show all tables")
+conn.close()
+
+8mECCnu5MA9woQ
+zJ8QQWROX5mgBg

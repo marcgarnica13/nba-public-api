@@ -1,0 +1,46 @@
+{
+  "client": {
+    "base_url": "https://stats.gleague.nba.com/stats/"
+  },
+  "resource_generator": [
+    {
+      "name": "commonallplayers",
+      "endpoint": {
+        "path": "commonallplayers",
+        "params": {
+          "LeagueId": {
+            "resource": "leagues",
+            "field": "id",
+            "required": true
+          },
+          "Season": {
+            "resource": "seasons",
+            "field": "id",
+            "required": true
+          },
+          "IsOnlyCurrentSeason": {
+            "type": true
+          }
+        }
+      }
+    },
+    {
+      "name": "commmonPlayerInfo",
+      "endpoint": {
+        "path": "commonPlayerInfo",
+        "params": {
+          "LeagueId": {
+            "resource": "leagues",
+            "field": "id",
+            "required": true
+          },
+          "PlayerId": {
+            "resource": "players",
+            "field": "id",
+            "required": true
+          }
+        }
+      }
+    }
+  ]
+}
