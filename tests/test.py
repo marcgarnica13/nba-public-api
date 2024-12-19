@@ -7,16 +7,15 @@ from nba_public_api.ingestion.players_regular_stats_by_season import (
 nba = NBAPipeline(
     endpoints=["commonallplayers"],
     table_name="players",
-    pipeline_name="nba_ingestion_base",
 ).run(IsOnlyCurrentSeason=1, LeagueID="00", Season="2022-23")
 
-nba_players = PlayersPipeline(pipeline_name="nba_players_ingestion").run(
+nba_players = PlayersPipeline().run(
     IsOnlyCurrentSeason=1, LeagueID="00", Season="2022-23"
 )
 
-nba_players_stats = PlayersRegularStatsBySeason(
-    pipeline_name="nba_players_stats_ingestion"
-).run(LeagueID="00", PerMode="Totals", PlayerID=201142)
+nba_players_stats = PlayersRegularStatsBySeason().run(
+    LeagueID="00", PerMode="Totals", PlayerID=201142
+)
 
 import duckdb
 

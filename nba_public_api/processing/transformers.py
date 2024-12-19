@@ -31,9 +31,12 @@ def unify_headers_and_rows(response, *args, **kwargs):
     """
     try:
         payload = response.json()
+        parameters = payload.get("parameters", {})
         headers = payload.get("resultSets", [{}])[0].get("headers", [])
         rows = payload.get("resultSets", [{}])[0].get("rowSet", [])
         new_payload = _unify_headers_and_rows(headers=headers, rows=rows)
+        for item in new_payload:
+            item.update(parameters)
         modified_content: bytes = json.dumps(new_payload).encode("utf-8")
         response._content = modified_content
     except KeyError as e:
@@ -65,6 +68,7 @@ def _normalize_to_columnar(
 def normalize_to_columnar(response, *args, **kwargs):
     try:
         payload = response.json()
+        parameters = payload.get("parameters", {})
         headers = payload.get("resultSets", [{}])[0].get("headers", [])
         rows = payload.get("resultSets", [{}])[0].get("rowSet", [])
         new_payload = _normalize_to_columnar(
@@ -79,6 +83,8 @@ def normalize_to_columnar(response, *args, **kwargs):
             ],
             column_prefix="STAT",
         )
+        for item in new_payload:
+            item.update(parameters)
         modified_content: bytes = json.dumps(new_payload).encode("utf-8")
         response._content = modified_content
     except KeyError as e:
