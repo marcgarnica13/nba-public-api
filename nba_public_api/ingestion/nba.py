@@ -5,7 +5,7 @@ from nba_public_api.io import config
 from nba_public_api.processing.transformers import unify_headers_and_rows
 
 
-class StatsNBAPipeline:
+class NBAPipeline:
     """A pipeline class for ingesting NBA statistics data from specified API endpoints into a DuckDB database.
 
     Attributes:
@@ -60,13 +60,7 @@ class StatsNBAPipeline:
         rest_api_config = {
             "client": {"base_url": api_config.get("servers", [{}])[0].get("url")},
             "resources": [],
-            "resource_defaults": {
-                "endpoint": {
-                    "response_actions": [
-                        {"status_code": 200, "action": unify_headers_and_rows}
-                    ]
-                }
-            },
+            "resource_defaults": self.get_resource_defaults(),
         }
         for endpoint in self.ENDPOINTS:
             api_path = "/" + endpoint
@@ -91,6 +85,9 @@ class StatsNBAPipeline:
                 {"name": endpoint, "endpoint": api_endpoint}
             )
         self.source = rest_api_source(rest_api_config, name="nba_api")
+
+    def get_resource_defaults(self) -> dict:
+        return {}
 
     def run(self, **kwargs):
         """
