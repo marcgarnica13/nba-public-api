@@ -1,4 +1,4 @@
-from nba_public_api.dlt_pipelines.nba import StatsNBAPipeline
+from nba_public_api.ingestion.nba import StatsNBAPipeline
 from nba_public_api.io import config
 
 
