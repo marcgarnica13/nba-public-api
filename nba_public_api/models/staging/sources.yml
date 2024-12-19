@@ -1,0 +1,11 @@
+version: 2
+
+
+sources:
+  - name: nba_data
+    schema: nba_data
+    description: nba_data
+    tables: 
+      - name: players
+        description: Test
+        identifier: players

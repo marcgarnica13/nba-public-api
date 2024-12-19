@@ -28,7 +28,7 @@ class NBAPipeline:
         self.pipeline = dlt.pipeline(
             pipeline_name=pipeline_name,
             destination=kwargs.get("pipeline_destination", "duckdb"),
-            dataset_name=kwargs.get("pipeline_dataset_name", "nba_data"),
+            dataset_name=kwargs.get("pipeline_dataset_name", "nba_data.raw"),
             refresh=kwargs.get("pipeline_refresh", None),
             progress=kwargs.get("pipeline_progress", "log"),
         )
